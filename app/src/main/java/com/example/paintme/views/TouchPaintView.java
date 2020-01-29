@@ -42,7 +42,7 @@ public class TouchPaintView extends View {
         mPaint.setColor(mColor);
     }
 
-    private void clear() {
+    public void clear() {
         mCanvas.drawColor(Color.WHITE);
     }
 
@@ -89,5 +89,9 @@ public class TouchPaintView extends View {
         }
 
         return true;
+    }
+
+    public void setColor(int color) {
+        mPaint.setColor(color);
     }
 }

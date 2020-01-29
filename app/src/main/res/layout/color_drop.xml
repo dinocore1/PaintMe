@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.paintme.views.ColorDrop xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="75dp"
+    android:layout_height="75dp"
+    android:padding="10dp"
+    >
+
+</com.example.paintme.views.ColorDrop>
