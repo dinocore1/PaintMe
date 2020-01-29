@@ -44,6 +44,7 @@ public class TouchPaintView extends View {
 
     public void clear() {
         mCanvas.drawColor(Color.WHITE);
+        invalidate();
     }
 
     @Override
