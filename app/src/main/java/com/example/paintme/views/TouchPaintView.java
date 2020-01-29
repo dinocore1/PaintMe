@@ -19,7 +19,7 @@ public class TouchPaintView extends View {
     private Paint mPaint;
     private Canvas mCanvas;
 
-    private float mStrokeWidth = 5.0f;
+    private float mStrokeWidth = 15.0f;
     private int mColor = Color.BLACK;
 
 

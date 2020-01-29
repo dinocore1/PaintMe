@@ -24,7 +24,8 @@ public class ColorPicker extends DialogFragment {
 
     private final int[] COLORS = new int[]{
             Color.BLACK, Color.WHITE, Color.GRAY,
-            Color.RED, Color.GREEN, Color.BLUE,
+            Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW,
+            Color.CYAN, Color.MAGENTA
     };
 
     public static ColorPicker newInstance() {
