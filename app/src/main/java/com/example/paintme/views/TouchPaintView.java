@@ -95,4 +95,8 @@ public class TouchPaintView extends View {
     public void setColor(int color) {
         mPaint.setColor(color);
     }
+
+    public Bitmap getImage() {
+        return mBitmap;
+    }
 }

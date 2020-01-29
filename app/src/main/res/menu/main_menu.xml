@@ -12,7 +12,14 @@
     <item
         android:id="@+id/setcolor"
         android:icon="@android:drawable/ic_dialog_info"
+        android:title="@string/color"
         app:showAsAction="always"
         />
+
+    <item
+        android:id="@+id/share"
+        android:icon="@android:drawable/ic_menu_share"
+        android:title="@string/Share"
+        app:showAsAction="ifRoom" />
 
 </menu>

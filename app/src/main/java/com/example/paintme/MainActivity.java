@@ -1,17 +1,28 @@
 package com.example.paintme;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.devsmart.android.BackgroundTask;
 import com.example.paintme.views.ColorPicker;
 import com.example.paintme.views.TouchPaintView;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.setcolor:
                 showColorPicker();
                 return true;
+            case R.id.share:
+                share();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -70,6 +84,55 @@ public class MainActivity extends AppCompatActivity {
         // Create and show the dialog.
 
         mColorPickerFragment.show(ft, "dialog");
+    }
+
+    private void share() {
+        final Bitmap image = mPaintView.getImage();
+
+        BackgroundTask.runBackgroundTask(new BackgroundTask() {
+            private Uri mUri;
+
+            @Override
+            public void onBackground() {
+                mUri = saveImage(image);
+            }
+
+            @Override
+            public void onAfter() {
+                super.onAfter();
+                Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+                intent.putExtra(Intent.EXTRA_STREAM, mUri);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                intent.setType("image/png");
+                startActivity(intent);
+            }
+        });
+
+
+    }
+
+
+
+    private Uri saveImage(Bitmap image) {
+        File imagesFolder = new File(getCacheDir(), "images");
+        Uri uri = null;
+        try {
+            imagesFolder.mkdirs();
+            File file = new File(imagesFolder, "output.png");
+
+            FileOutputStream stream = new FileOutputStream(file);
+            try {
+                image.compress(Bitmap.CompressFormat.PNG, 90, stream);
+            } finally {
+                stream.close();
+            }
+            uri = FileProvider.getUriForFile(this, "com.example.fileprovider", file);
+
+
+        } catch (IOException e) {
+            Log.d("MAIN", "IOException while trying to write file for sharing: " + e.getMessage());
+        }
+        return uri;
     }
 
 
